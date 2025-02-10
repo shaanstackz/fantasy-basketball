@@ -43,3 +43,16 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# iOS build artifacts
+/ios/Flutter/.symlinks/
+/ios/Pods/
+/ios/Runner.xcworkspace/
+/ios/Flutter/Flutter.framework/
+/ios/Flutter/Flutter.podspec
+/ios/Flutter/flutter_*.framework
+/ios/Runner/Assets.xcassets
+
+# Xcode related
+/ios/.idea/
+/ios/Flutter/Flutter.podspec.lock
