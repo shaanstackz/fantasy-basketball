@@ -8,6 +8,9 @@ from nba_api.stats.endpoints import playergamelog
 from sportsreference.ncaab.roster import Roster
 from sportsreference.ncaab.teams import Teams
 
+# Import Registration Form
+from forms import RegistrationForm
+
 # Initialize Flask application
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
@@ -34,6 +37,18 @@ class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
+
+# Register route
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('login'))
+    return render_template('register.html', form=form)
 
 # NBA player statistics route
 @app.route('/nba_player_stats')
