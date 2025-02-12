@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'services/api_service.dart';
+import 'services/web_scraper.dart';
 import 'models/player_stats.dart';
+
 
 void main() {
   runApp(FantasyBasketballApp());
@@ -27,19 +29,27 @@ class _TeamAnalyzerScreenState extends State<TeamAnalyzerScreen> {
   final ApiService _apiService = ApiService();
   bool _isLoading = false;
 
-  void _analyzePlayer() async {
-    setState(() {
-      _isLoading = true;
-    });
+void _analyzePlayer() async {
+  setState(() {
+    _isLoading = true;
+  });
 
-    final stats = await _apiService.fetchPlayerStats(_playerController.text);
+  final stats = await WebScraper().fetchPlayerStats(_playerController.text);
 
-    setState(() {
-      _isLoading = false;
-      _playerStats = stats;
-    });
-  }
-
+  setState(() {
+    _isLoading = false;
+    if (stats != null) {
+      _playerStats = PlayerStats(
+        name: stats["name"],
+        points: stats["points"],
+        rebounds: stats["rebounds"],
+        assists: stats["assists"],
+      );
+    } else {
+      _playerStats = null;
+    }
+  });
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(

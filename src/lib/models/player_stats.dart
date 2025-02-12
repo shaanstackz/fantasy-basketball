@@ -4,14 +4,19 @@ class PlayerStats {
   final double rebounds;
   final double assists;
 
-  PlayerStats({required this.name, required this.points, required this.rebounds, required this.assists});
+  PlayerStats({
+    required this.name,
+    required this.points,
+    required this.rebounds,
+    required this.assists,
+  });
 
   factory PlayerStats.fromJson(Map<String, dynamic> json) {
     return PlayerStats(
-      name: json['name'],
-      points: json['points'].toDouble(),
-      rebounds: json['rebounds'].toDouble(),
-      assists: json['assists'].toDouble(),
+      name: json["name"] ?? "Unknown",
+      points: json["points"]?.toDouble() ?? 0.0,
+      rebounds: json["rebounds"]?.toDouble() ?? 0.0,
+      assists: json["assists"]?.toDouble() ?? 0.0,
     );
   }
 }
