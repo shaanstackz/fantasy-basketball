@@ -23,7 +23,7 @@ class WebScraper {
 
         // Extract Player Stats (Adjust selectors based on actual site)
         // Convert the stats to double before returning them
-      var points = double.tryParse(document.querySelector("#per_game .ppts_per_g")?.text ?? "0") ?? 0.0;
+      var points = double.tryParse(document.querySelector('td[data-stat="pts_per_g"]')?.text ?? "0") ?? 0.0;
       var rebounds = double.tryParse(document.querySelector("#per_game .trb_per_g")?.text ?? "0") ?? 0.0;
       var assists = double.tryParse(document.querySelector("#per_game .ast_per_g")?.text ?? "0") ?? 0.0;
 
